@@ -4,7 +4,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 // Material2
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatToolbarModule} from '@angular/material';
+import {MatToolbarModule, MatListModule} from '@angular/material';
 import 'hammerjs';
 
 // Components
@@ -22,6 +22,7 @@ import { ContentComponent } from './content/content.component';
     BrowserModule,
     FlexLayoutModule,
     MatToolbarModule,
+    MatListModule,
     BrowserAnimationsModule
   ],
   providers: [],

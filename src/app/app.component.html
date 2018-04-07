@@ -1,7 +1,7 @@
 <div class="app-content">
   <mat-toolbar color="primary">{{ appTitle }}</mat-toolbar>
   <div class="app-container" fxLayout="row">
-    <app-sidebar fxFlex="20"></app-sidebar>
+    <app-sidebar [navigation]="navigation" fxFlex="20"></app-sidebar>
     <app-content fxFlex></app-content>
   </div>
 </div>
