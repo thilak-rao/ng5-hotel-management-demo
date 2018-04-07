@@ -1,0 +1,20 @@
+<mat-card fxLayoutGap>
+  <mat-card-title>Hotel {{hotel.name}}</mat-card-title>
+  <mat-card-subtitle>{{hotel.city}}</mat-card-subtitle>
+  <mat-card-content>
+    <strong>Rooms:</strong>
+    <ul>
+      <li *ngFor="let room of hotel.rooms">
+        {{room}}
+      </li>
+    </ul>
+
+    <strong>Amenities:</strong>
+    <ul>
+      <li *ngFor="let amenity of hotel.amenities">
+        {{amenity}}
+      </li>
+    </ul>
+  </mat-card-content>
+
+</mat-card>

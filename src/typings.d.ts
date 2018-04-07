@@ -4,7 +4,11 @@ interface NodeModule {
   id: string;
 }
 
-interface INavigationItem {
-  text: string;
-  url: string;
+interface IHotel {
+  hotel_id: string;
+  name: string;
+  city: string;
+  rate: number;
+  amenities: [string];
+  rooms: [string];
 }
