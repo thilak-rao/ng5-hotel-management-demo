@@ -7,10 +7,12 @@ import {HotelsService} from '../hotels.service';
   styleUrls: ['./hotels-list.component.scss']
 })
 export class HotelsListComponent implements OnInit {
-  private hotels;
+  public hotels: IHotel[];
   constructor(hotelService: HotelsService) {
     hotelService.getHotels()
-      .subscribe((data) => this.hotels = data);
+      .subscribe((data: IHotel[]) => {
+        this.hotels = data;
+      });
   }
 
   ngOnInit() {

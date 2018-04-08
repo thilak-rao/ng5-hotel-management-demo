@@ -1,20 +1,27 @@
 <mat-card fxLayoutGap>
-  <mat-card-title>Hotel {{hotel.name}}</mat-card-title>
-  <mat-card-subtitle>{{hotel.city}}</mat-card-subtitle>
-  <mat-card-content>
-    <strong>Rooms:</strong>
-    <ul>
-      <li *ngFor="let room of hotel.rooms">
-        {{room}}
-      </li>
-    </ul>
+  <mat-card-content fxLayout="row" fxLayoutAlign="start start">
+    <img fxFlex="30" fxFlex.md="20" fxFlex.lg="10" class="hotelcard__thumbnail" src="{{ hotel.thumbnail }}" alt="Photo of {{hotel.type}} {{hotel.name}}">
+    <div fxFlex="70" fxFlex.md="80" fxFlex.lg="90">
+      <mat-card-title>{{hotel.type}} {{hotel.name}}</mat-card-title>
+      <div class="hotelcard__city" fxLayout="row" fxLayoutAlign="start center">
+        <mat-icon svgIcon="city"></mat-icon> {{hotel.city}}
+      </div>
+      <div fxLayout="row" fxLayoutAlign="space-between end">
+        <div class="hotelcard__amenities" *ngIf="hotel.amenities.private_bath || hotel.amenities.shared_kitchen">
+          <ul class="hotelcard__list">
+            <li fxLayout="row" fxLayoutAlign="start center" fxLayoutGap *ngIf="hotel.amenities.private_bath"><mat-icon svgIcon="private-bath"></mat-icon> Private Bath</li>
+            <li fxLayout="row" fxLayoutAlign="start center" fxLayoutGap *ngIf="hotel.amenities.shared_kitchen"><mat-icon svgIcon="shared-kitchen"></mat-icon>  Shared Kitchen</li>
+          </ul>
+        </div>
 
-    <strong>Amenities:</strong>
-    <ul>
-      <li *ngFor="let amenity of hotel.amenities">
-        {{amenity}}
-      </li>
-    </ul>
+        <div class="hotelcard__amenities" *ngIf="!(hotel.amenities.private_bath || hotel.amenities.shared_kitchen)">
+          <ul class="hotelcard__list">
+            <li fxLayout="row" fxLayoutAlign="start center" fxLayoutGap><mat-icon svgIcon="no-amenities"></mat-icon> No Private Bath or Shared Kitchen</li>
+          </ul>
+        </div>
+
+        <div class="hotelcard__rate">{{hotel.rate.price | currency:hotel.rate.code:'code'}}</div>
+      </div>
+    </div>
   </mat-card-content>
-
 </mat-card>

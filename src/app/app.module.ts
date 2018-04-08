@@ -7,7 +7,7 @@ import { environment } from '../environments/environment';
 
 // Material2
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatToolbarModule, MatCardModule} from '@angular/material';
+import {MatToolbarModule, MatCardModule, MatIconModule} from '@angular/material';
 import 'hammerjs';
 
 // Components
@@ -40,6 +40,7 @@ const appRoutes: Routes = [
     HttpClientModule,
     FlexLayoutModule,
     MatToolbarModule,
+    MatIconModule,
     MatCardModule,
     BrowserAnimationsModule
   ],
