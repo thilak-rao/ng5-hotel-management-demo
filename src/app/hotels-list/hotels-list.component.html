@@ -1,3 +1,4 @@
-<div *ngFor="let hotel of hotels">
+<app-hotel-filter></app-hotel-filter>
+<div *ngFor="let hotel of hotels | hotelSearch: hotelSearchString | citySearch: citySearchString">
   <app-hotel-card [hotel]="hotel"></app-hotel-card>
 </div>

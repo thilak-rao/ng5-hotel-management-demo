@@ -17,7 +17,7 @@ export class HotelCardComponent implements OnInit {
       sanitizer.bypassSecurityTrustResourceUrl('assets/icons/kitchen.svg'));
     iconRegistry.addSvgIcon(
       'private-bath',
-      sanitizer.bypassSecurityTrustResourceUrl('assets/icons/spa.svg'));
+      sanitizer.bypassSecurityTrustResourceUrl('assets/icons/bath-tub.svg'));
     iconRegistry.addSvgIcon(
       'no-amenities',
       sanitizer.bypassSecurityTrustResourceUrl('assets/icons/sentiment_dissatisfied.svg'));

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {HotelsService} from '../hotels.service';
+import {HotelsService} from './hotels.service';
 
 @Component({
   selector: 'app-hotels-list',
@@ -7,8 +7,10 @@ import {HotelsService} from '../hotels.service';
   styleUrls: ['./hotels-list.component.scss']
 })
 export class HotelsListComponent implements OnInit {
-  public hotels: IHotel[];
-  constructor(hotelService: HotelsService) {
+  hotels: IHotel[];
+  hotelSearchString = '';
+  citySearchString = '';
+  constructor(private hotelService: HotelsService) {
     hotelService.getHotels()
       .subscribe((data: IHotel[]) => {
         this.hotels = data;
@@ -16,6 +18,7 @@ export class HotelsListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.hotelService.currentHotel.subscribe(hotelName => this.hotelSearchString = hotelName);
+    this.hotelService.currentCity.subscribe(cityName => this.citySearchString = cityName);
   }
-
 }

@@ -1,0 +1,16 @@
+<div class="example-container">
+  <form class="example-container" [formGroup]="filterForm">
+    <mat-form-field [floatLabel]="filterForm.value.floatLabel">
+      <mat-label>Search City</mat-label>
+      <input matInput formControlName="searchCity" placeholder="City Name">
+    </mat-form-field>
+
+    <mat-form-field [floatLabel]="filterForm.value.floatLabel">
+      <mat-label>Search Hotel</mat-label>
+      <input matInput formControlName="searchHotel" placeholder="Hotel Name">
+    </mat-form-field>
+
+    <mat-checkbox formControlName="privateBath">Private Bath</mat-checkbox>
+    <mat-checkbox formControlName="sharedKitchen">Shared Kitchen</mat-checkbox>
+  </form>
+</div>
