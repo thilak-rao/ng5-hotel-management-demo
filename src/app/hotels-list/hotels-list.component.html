@@ -1,4 +1,5 @@
 <app-hotel-filter></app-hotel-filter>
-<div *ngFor="let hotel of hotels | hotelSearch: hotelSearchString | citySearch: citySearchString">
+<div *ngFor="let hotel of hotels | filterBy: ['name']: hotelSearchString | filterBy: ['city']: citySearchString
+  | filterBy: ['amenities.private_bath']: showPrivateBath | filterBy: ['amenities.shared_kitchen']: showSharedKitchen" >
   <app-hotel-card [hotel]="hotel"></app-hotel-card>
 </div>

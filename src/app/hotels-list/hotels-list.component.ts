@@ -10,15 +10,39 @@ export class HotelsListComponent implements OnInit {
   hotels: IHotel[];
   hotelSearchString = '';
   citySearchString = '';
+  showPrivateBath: boolean|null = null;
+  showSharedKitchen: boolean|null = null;
   constructor(private hotelService: HotelsService) {
-    hotelService.getHotels()
+    this.hotelService.getHotels()
       .subscribe((data: IHotel[]) => {
         this.hotels = data;
       });
   }
 
+  private resetState(): void {
+    this.hotelSearchString = '';
+    this.citySearchString = '';
+    this.showPrivateBath = null;
+    this.showSharedKitchen = null;
+  }
+
   ngOnInit() {
-    this.hotelService.currentHotel.subscribe(hotelName => this.hotelSearchString = hotelName);
-    this.hotelService.currentCity.subscribe(cityName => this.citySearchString = cityName);
+    this.hotelService.hotelObservable.subscribe(hotelName => {
+      this.hotelSearchString = hotelName;
+    });
+    this.hotelService.cityObservable.subscribe(cityName => {
+      this.citySearchString = cityName;
+    });
+    this.hotelService.sharedKitchenObservable.subscribe(show => {
+      this.showSharedKitchen = show;
+    });
+    this.hotelService.privateBathObservable.subscribe(show => {
+      this.showPrivateBath = show;
+    });
+    this.hotelService.resetObservable.subscribe(value => {
+      if (value) {
+        this.resetState();
+      }
+    });
   }
 }

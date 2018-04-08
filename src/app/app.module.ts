@@ -9,19 +9,21 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // Material2
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatToolbarModule, MatCardModule, MatIconModule, MatFormFieldModule, MatCheckboxModule, MatInputModule} from '@angular/material';
+import {MatButtonModule} from '@angular/material';
 import 'hammerjs';
 
 // Components
 import { AppComponent } from './app.component';
 import { HotelsListComponent } from './hotels-list/hotels-list.component';
 import { HotelCardComponent } from './hotels-list/hotel-card/hotel-card.component';
+import { HotelFilterComponent } from './hotels-list/hotel-filter/hotel-filter.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+
+// Pipes
+import {FilterByPipe} from 'ngx-pipes';
 
 // Services
 import { HotelsService } from './hotels-list/hotels.service';
-import { HotelFilterComponent } from './hotels-list/hotel-filter/hotel-filter.component';
-import { HotelSearchPipe } from './hotels-list/hotel-search.pipe';
-import { CitySearchPipe } from './hotels-list/city-search.pipe';
 
 const appRoutes: Routes = [
   { path: '', component: HotelsListComponent },
@@ -35,8 +37,7 @@ const appRoutes: Routes = [
     HotelsListComponent,
     HotelCardComponent,
     HotelFilterComponent,
-    HotelSearchPipe,
-    CitySearchPipe,
+    FilterByPipe
   ],
   imports: [
     RouterModule.forRoot(
@@ -47,14 +48,15 @@ const appRoutes: Routes = [
     HttpClientModule,
     FlexLayoutModule,
     FormsModule,
+    BrowserAnimationsModule,
     ReactiveFormsModule,
     MatToolbarModule,
     MatFormFieldModule,
     MatCheckboxModule,
     MatInputModule,
     MatIconModule,
-    MatCardModule,
-    BrowserAnimationsModule
+    MatButtonModule,
+    MatCardModule
   ],
   providers: [HotelsService],
   bootstrap: [AppComponent]

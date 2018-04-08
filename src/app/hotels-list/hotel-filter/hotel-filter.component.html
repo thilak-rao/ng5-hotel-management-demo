@@ -10,7 +10,8 @@
       <input matInput formControlName="searchHotel" placeholder="Hotel Name">
     </mat-form-field>
 
-    <mat-checkbox formControlName="privateBath">Private Bath</mat-checkbox>
-    <mat-checkbox formControlName="sharedKitchen">Shared Kitchen</mat-checkbox>
+    <mat-checkbox name="private_bath" (change)="onCheckboxChange($event)" formControlName="private_bath">Private Bath</mat-checkbox>
+    <mat-checkbox name="shared_kitchen" (change)="onCheckboxChange($event)" formControlName="shared_kitchen">Shared Kitchen</mat-checkbox>
+    <button mat-button color="accent" (click)="onResetFilters()" *ngIf="isDirty">Reset Filters</button>
   </form>
 </div>

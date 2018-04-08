@@ -5,21 +5,42 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class HotelsService {
-  private hotelSource = new BehaviorSubject<string>('');
-  private citySource = new BehaviorSubject<string>('');
-  currentHotel = this.hotelSource.asObservable();
-  currentCity = this.citySource.asObservable();
+  private hotelSubject = new BehaviorSubject<string>('');
+  private citySubject = new BehaviorSubject<string>('');
+  private sharedKitchenSubject = new BehaviorSubject<boolean|null>(null);
+  private privateBathSubject = new BehaviorSubject<boolean|null>(null);
+  private resetSubject = new BehaviorSubject<boolean>(false);
+
+  hotelObservable = this.hotelSubject.asObservable();
+  cityObservable = this.citySubject.asObservable();
+  sharedKitchenObservable = this.sharedKitchenSubject.asObservable();
+  privateBathObservable = this.privateBathSubject.asObservable();
+  resetObservable = this.resetSubject.asObservable();
+
 
   constructor(private http: HttpClient) { }
+
   getHotels() {
     return this.http.get(environment.services.hotels);
   }
 
   searchHotel(hotelName: string) {
-    this.hotelSource.next(hotelName);
+    this.hotelSubject.next(hotelName);
   }
 
   searchCity(cityName: string) {
-    this.citySource.next(cityName);
+    this.citySubject.next(cityName);
+  }
+
+  onlySharedKitchen(show: boolean|null) {
+    this.sharedKitchenSubject.next(show);
+  }
+
+  onlyPrivateBath(show: boolean|null) {
+    this.privateBathSubject.next(show);
+  }
+
+  resetFilters(): void {
+    this.resetSubject.next(true);
   }
 }
