@@ -2,8 +2,12 @@
   <form [formGroup]="filterForm" fxFlex="90" fxFlex.lt-md="100" fxLayout="row" fxLayout.lt-md="column"
         fxLayoutAlign="start center" fxLayoutAlign.lt-md="center stretch">
     <mat-form-field class="hotelfilter__field" [floatLabel]="filterForm.value.floatLabel">
-      <mat-label>Search City</mat-label>
-      <input matInput formControlName="searchCity" placeholder="City Name">
+      <input matInput placeholder="City" aria-label="City" [matAutocomplete]="auto" formControlName="searchCity">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let city of filteredCities | async" [value]="city">
+          {{ city }}
+        </mat-option>
+      </mat-autocomplete>
     </mat-form-field>
 
     <mat-form-field class="hotelfilter__field" [floatLabel]="filterForm.value.floatLabel">

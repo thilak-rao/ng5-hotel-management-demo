@@ -9,7 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // Material2
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatToolbarModule, MatCardModule, MatIconModule, MatFormFieldModule, MatCheckboxModule, MatInputModule} from '@angular/material';
-import {MatButtonModule} from '@angular/material';
+import {MatButtonModule, MatAutocompleteModule, MatSelectModule} from '@angular/material';
 import 'hammerjs';
 
 // Components
@@ -52,6 +52,8 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     MatToolbarModule,
     MatFormFieldModule,
+    MatAutocompleteModule,
+    MatSelectModule,
     MatCheckboxModule,
     MatInputModule,
     MatIconModule,

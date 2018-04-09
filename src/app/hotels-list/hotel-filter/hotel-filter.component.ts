@@ -1,7 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, AfterContentInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {HotelsService} from '../hotels.service';
 import {MatCheckboxChange} from '@angular/material';
+import {Observable} from 'rxjs/Observable';
+import {startWith} from 'rxjs/operators/startWith';
+import {map} from 'rxjs/operators/map';
 import 'rxjs/add/operator/debounceTime';
 
 @Component({
@@ -9,9 +12,11 @@ import 'rxjs/add/operator/debounceTime';
   templateUrl: './hotel-filter.component.html',
   styleUrls: ['./hotel-filter.component.scss']
 })
-export class HotelFilterComponent implements OnInit {
+export class HotelFilterComponent implements AfterContentInit {
+  @Input() cities: string[];
   filterForm: FormGroup;
   isDirty = false;
+  filteredCities: Observable<any[]>;
 
   constructor(fb: FormBuilder, private hotelService: HotelsService) {
     this.filterForm = fb.group({
@@ -21,6 +26,11 @@ export class HotelFilterComponent implements OnInit {
       private_bath: false,
       floatLabel: 'auto',
     });
+  }
+
+  filterCities(name: string) {
+    return this.cities.filter(city =>
+      city.toLowerCase().indexOf(name.toLowerCase()) === 0);
   }
 
   onResetFilters(): void {
@@ -67,7 +77,12 @@ export class HotelFilterComponent implements OnInit {
     this.checkIfFormDirty();
   }
 
-  ngOnInit() {
+  ngAfterContentInit() {
+    this.filteredCities = this.filterForm.controls.searchCity.valueChanges
+      .pipe(
+        startWith(''),
+        map(city => city ? this.filterCities(city) : this.cities.slice())
+      );
     this.onChanges();
   }
 }
