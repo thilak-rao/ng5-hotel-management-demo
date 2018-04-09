@@ -1,11 +1,9 @@
 <mat-card class="hotelcard" (click)="openHotelQuickView()">
-  <mat-card-content fxLayout="row" fxLayoutAlign="start start">
+  <mat-card-content fxLayout="row" fxLayoutAlign="space-between center">
     <img fxFlex="30" fxFlex.md="20" fxFlex.lg="10" class="hotelcard__thumbnail" src="{{ hotel.thumbnail }}" alt="Photo of {{hotel.name}}">
     <div fxFlex="70" fxFlex.md="80" fxFlex.lg="90">
       <mat-card-title>{{hotel.name}}</mat-card-title>
-      <div class="hotelcard__city" fxLayout="row" fxLayoutAlign="start center">
-        <mat-icon svgIcon="city"></mat-icon> {{hotel.city}}
-      </div>
+      <div class="hotelcard__city mat-subheading-2" fxLayout="row" fxLayoutAlign="start center">{{hotel.city}}</div>
       <div fxLayout="row" fxLayoutAlign="space-between end">
         <div class="hotelcard__amenities" *ngIf="hotel.amenities.private_bath || hotel.amenities.shared_kitchen">
           <ul class="hotelcard__list">
@@ -20,7 +18,7 @@
           </ul>
         </div>
 
-        <div class="hotelcard__rate">{{hotel.rate.price | currency:hotel.rate.code:'symbol'}}</div>
+        <div class="hotelcard__rate mat-headline">{{hotel.rate.price | currency:hotel.rate.code:'symbol'}}</div>
       </div>
     </div>
   </mat-card-content>

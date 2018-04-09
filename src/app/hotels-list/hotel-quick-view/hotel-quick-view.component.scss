@@ -1,6 +1,14 @@
 @import '~@angular/material/theming';
 @import '~variables.scss';
 
+.quickview_city {
+  margin-top: $global_margin;
+}
+
+.quickview_list__header, .quickview_city, quickview_list {
+  color: map-get($mat-grey, 800);
+}
+
 .quickview_loader {
   margin: $global_margin * 2;
 }
@@ -18,6 +26,6 @@
   padding-left: $global_padding;
 }
 
-.quickview_listgroup {
-  margin-top: $global_margin;
+.quickview_price__label {
+  color: map-get($mat-grey, 400);
 }

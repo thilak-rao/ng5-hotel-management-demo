@@ -7,22 +7,24 @@
           <img src="{{ hotel.cover_photo }}" (load)="onImageLoad()" alt="Photo of {{hotel.name}}" fxFill>
         </div>
     </div>
-    <div class="quickview_listgroup" fxLayout="row" fxLayoutAlign="space-between stretch">
+    <h1 class="quickview_city">{{hotel.city}}</h1>
+    <div fxLayout="row" fxLayoutAlign="space-between stretch">
       <div fxFlex="50">
-        <h2>Amenities</h2>
+        <h2 class="quickview_list__header">Amenities</h2>
         <ul class="quickview_list">
           <li *ngFor="let amenity of amenities">{{amenity| ucfirst}}</li>
         </ul>
       </div>
 
       <div fxFlex="50">
-        <h2>Rooms</h2>
+        <h2 class="quickview_list__header">Rooms</h2>
         <ul class="quickview_list">
           <li *ngFor="let room of hotel.rooms | ucfirst">{{room}}</li>
         </ul>
       </div>
     </div>
-    <h1 class="quickview_price__wrap caption" fxLayout="row" fxLayoutAlign="end center"><span class="quickview_price">{{hotel.rate.price | currency:hotel.rate.code:'symbol'}}</span>/month</h1>
+    <h1 class="quickview_price__wrap" fxLayout="row" fxLayoutAlign="end center"><span class="quickview_price">
+      {{hotel.rate.price | currency:hotel.rate.code:'symbol'}}</span><span class="quickview_price__label">/month</span></h1>
   </div>
 </div>
 <div mat-dialog-actions>

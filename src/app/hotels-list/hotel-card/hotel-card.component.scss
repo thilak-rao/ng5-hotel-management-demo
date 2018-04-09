@@ -9,9 +9,7 @@
 }
 
 .hotelcard__city {
-  color: map-get($mat-grey, 700);
-  font-size: 1rem;
-  padding-bottom: $global_padding;
+  color: map-get($mat-grey, 600);
   & .mat-icon {
     padding-right: $small-padding;
   }
@@ -21,8 +19,8 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  font-size: 0.8rem;
-  color: map-get($mat-grey, 700);
+  //font-size: 0.8rem;
+  color: map-get($mat-grey, 500);
 
   & .mat-icon {
     padding-right: $small-padding;
@@ -30,6 +28,6 @@
 }
 
 .hotelcard__rate {
-  font-size: 1.2rem;
-  color: map-get($mat-red, 500)
+  margin: 0;
+  color: map-get($mat-red, 600)
 }

@@ -23,9 +23,6 @@ export class HotelCardComponent implements OnInit {
     iconRegistry.addSvgIcon(
       'no-amenities',
       sanitizer.bypassSecurityTrustResourceUrl('assets/icons/sentiment_dissatisfied.svg'));
-    iconRegistry.addSvgIcon(
-      'city',
-      sanitizer.bypassSecurityTrustResourceUrl('assets/icons/location_city.svg'));
   }
 
   openHotelQuickView(): void {
