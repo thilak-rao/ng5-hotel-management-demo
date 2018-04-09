@@ -1,0 +1,30 @@
+<h1 mat-dialog-title>{{hotel.name}}</h1>
+<div mat-dialog-content>
+  <div fxLayout="column" fxLayoutAlign="start">
+    <div fxLayout="column" fxLayoutAlign="center center">
+        <div class="quickview_loader" *ngIf="!isImageLoaded"><mat-spinner [strokeWidth]="3" [diameter]="50"></mat-spinner></div>
+        <div fxLayout="column" fxLayoutAlign="center center" >
+          <img src="{{ hotel.cover_photo }}" (load)="onImageLoad()" alt="Photo of {{hotel.name}}" fxFill>
+        </div>
+    </div>
+    <div class="quickview_listgroup" fxLayout="row" fxLayoutAlign="space-between stretch">
+      <div fxFlex="50">
+        <h2>Amenities</h2>
+        <ul class="quickview_list">
+          <li *ngFor="let amenity of amenities">{{amenity| ucfirst}}</li>
+        </ul>
+      </div>
+
+      <div fxFlex="50">
+        <h2>Rooms</h2>
+        <ul class="quickview_list">
+          <li *ngFor="let room of hotel.rooms | ucfirst">{{room}}</li>
+        </ul>
+      </div>
+    </div>
+    <h1 class="quickview_price__wrap caption" fxLayout="row" fxLayoutAlign="end center"><span class="quickview_price">{{hotel.rate.price | currency:hotel.rate.code:'symbol'}}</span>/month</h1>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button color="primary" (click)="closeDialog()">Close</button>
+</div>

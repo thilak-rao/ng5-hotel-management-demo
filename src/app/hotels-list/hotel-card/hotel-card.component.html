@@ -1,6 +1,6 @@
-<mat-card class="hotelcard">
+<mat-card class="hotelcard" (click)="openHotelQuickView()">
   <mat-card-content fxLayout="row" fxLayoutAlign="start start">
-    <img fxFlex="30" fxFlex.md="20" fxFlex.lg="10" class="hotelcard__thumbnail" src="{{ hotel.thumbnail }}" alt="Photo of {{hotel.type}} {{hotel.name}}">
+    <img fxFlex="30" fxFlex.md="20" fxFlex.lg="10" class="hotelcard__thumbnail" src="{{ hotel.thumbnail }}" alt="Photo of {{hotel.name}}">
     <div fxFlex="70" fxFlex.md="80" fxFlex.lg="90">
       <mat-card-title>{{hotel.name}}</mat-card-title>
       <div class="hotelcard__city" fxLayout="row" fxLayoutAlign="start center">

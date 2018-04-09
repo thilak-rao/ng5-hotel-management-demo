@@ -16,8 +16,8 @@
     </mat-form-field>
 
     <div fxLayout.lt-md="row" fxLayoutAlign.lt-md="start start" >
-      <mat-checkbox class="hotelfilter__field" name="private_bath" (change)="onCheckboxChange($event)" formControlName="private_bath">Private Bath</mat-checkbox>
-      <mat-checkbox class="hotelfilter__field" name="shared_kitchen" (change)="onCheckboxChange($event)" formControlName="shared_kitchen">Shared Kitchen</mat-checkbox>
+      <mat-checkbox class="hotelfilter__field" name="private_bath" (change)="onChanges($event)" formControlName="private_bath">Private Bath</mat-checkbox>
+      <mat-checkbox class="hotelfilter__field" name="shared_kitchen" (change)="onChanges($event)" formControlName="shared_kitchen">Shared Kitchen</mat-checkbox>
     </div>
     <button class="hotelfilter__reset" mat-button color="accent" (click)="onResetFilters()" *ngIf="isDirty">Reset Filters</button>
   </form>

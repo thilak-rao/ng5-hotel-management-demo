@@ -1,16 +1,18 @@
 import {Component, OnInit, Input} from '@angular/core';
-import {CurrencyPipe} from '@angular/common';
 import {DomSanitizer} from '@angular/platform-browser';
-import {MatIconRegistry} from '@angular/material';
+import {MatIconRegistry, MatDialog} from '@angular/material';
+import {HotelQuickViewComponent} from '../hotel-quick-view/hotel-quick-view.component';
+
 
 @Component({
   selector: 'app-hotel-card',
   templateUrl: './hotel-card.component.html',
-  styleUrls: ['./hotel-card.component.scss']
+  styleUrls: ['./hotel-card.component.scss'],
+
 })
 export class HotelCardComponent implements OnInit {
   @Input() hotel: IHotel;
-  constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
+  constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer, private dialog: MatDialog) {
     // register material design icons
     iconRegistry.addSvgIcon(
       'shared-kitchen',
@@ -25,6 +27,14 @@ export class HotelCardComponent implements OnInit {
       'city',
       sanitizer.bypassSecurityTrustResourceUrl('assets/icons/location_city.svg'));
   }
+
+  openHotelQuickView(): void {
+    this.dialog.open(HotelQuickViewComponent, {
+      maxWidth: 600,
+      data: this.hotel
+    });
+  }
+
   ngOnInit() {
   }
 }

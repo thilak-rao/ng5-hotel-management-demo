@@ -57,23 +57,13 @@ export class HotelFilterComponent implements AfterContentInit {
     }
   }
 
-  onCheckboxChange(e: MatCheckboxChange): void {
+  onChanges(e: MatCheckboxChange): void {
     if (e.source.name === 'private_bath') {
       this.hotelService.onlyPrivateBath(e.checked);
     } else if (e.source.name === 'shared_kitchen') {
       this.hotelService.onlySharedKitchen(e.checked);
     }
-    this.checkIfFormDirty();
-  }
 
-  onChanges(): void {
-    this.filterForm.get('searchHotel').valueChanges.debounceTime(300).subscribe(name => {
-      this.hotelService.searchHotel(name);
-    });
-
-    this.filterForm.get('searchCity').valueChanges.debounceTime(300).subscribe(name => {
-      this.hotelService.searchCity(name);
-    });
     this.checkIfFormDirty();
   }
 
@@ -83,6 +73,15 @@ export class HotelFilterComponent implements AfterContentInit {
         startWith(''),
         map(city => city ? this.filterCities(city) : this.cities.slice())
       );
-    this.onChanges();
+
+    this.filterForm.get('searchHotel').valueChanges.debounceTime(300).subscribe(name => {
+      this.hotelService.searchHotel(name);
+      this.checkIfFormDirty();
+    });
+
+    this.filterForm.get('searchCity').valueChanges.debounceTime(300).subscribe(name => {
+      this.hotelService.searchCity(name);
+      this.checkIfFormDirty();
+    });
   }
 }

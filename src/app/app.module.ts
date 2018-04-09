@@ -9,7 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // Material2
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatToolbarModule, MatCardModule, MatIconModule, MatFormFieldModule, MatCheckboxModule, MatInputModule} from '@angular/material';
-import {MatButtonModule, MatAutocompleteModule, MatSelectModule} from '@angular/material';
+import {MatButtonModule, MatAutocompleteModule, MatSelectModule, MatDialogModule, MatProgressSpinnerModule} from '@angular/material';
 import 'hammerjs';
 
 // Components
@@ -24,6 +24,7 @@ import {NgPipesModule} from 'ngx-pipes';
 
 // Services
 import { HotelsService } from './hotels-list/hotels.service';
+import { HotelQuickViewComponent } from './hotels-list/hotel-quick-view/hotel-quick-view.component';
 
 const appRoutes: Routes = [
   { path: '', component: HotelsListComponent },
@@ -37,7 +38,9 @@ const appRoutes: Routes = [
     HotelsListComponent,
     HotelCardComponent,
     HotelFilterComponent,
+    HotelQuickViewComponent
   ],
+  entryComponents: [HotelQuickViewComponent],
   imports: [
     RouterModule.forRoot(
       appRoutes,
@@ -54,6 +57,8 @@ const appRoutes: Routes = [
     MatFormFieldModule,
     MatAutocompleteModule,
     MatSelectModule,
+    MatProgressSpinnerModule,
+    MatDialogModule,
     MatCheckboxModule,
     MatInputModule,
     MatIconModule,

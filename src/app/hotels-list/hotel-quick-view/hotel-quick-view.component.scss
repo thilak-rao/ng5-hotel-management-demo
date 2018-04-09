@@ -1,0 +1,23 @@
+@import '~@angular/material/theming';
+@import '~variables.scss';
+
+.quickview_loader {
+  margin: $global_margin * 2;
+}
+
+.quickview_price {
+  color: map-get($mat-red, 500);
+}
+
+.quickview_price__wrap {
+  margin: $global_margin 0;
+}
+
+.quickview_list {
+  margin: 0;
+  padding-left: $global_padding;
+}
+
+.quickview_listgroup {
+  margin-top: $global_margin;
+}
