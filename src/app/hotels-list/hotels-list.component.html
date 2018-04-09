@@ -1,5 +1,8 @@
-<app-hotel-filter></app-hotel-filter>
-<div *ngFor="let hotel of hotels | filterBy: ['name']: hotelSearchString | filterBy: ['city']: citySearchString
-  | filterBy: ['amenities.private_bath']: showPrivateBath | filterBy: ['amenities.shared_kitchen']: showSharedKitchen" >
-  <app-hotel-card [hotel]="hotel"></app-hotel-card>
+<div class="hotellist">
+  <app-hotel-filter></app-hotel-filter>
+  <div *ngFor="let hotel of (sortByPrice ? (hotels | orderBy: 'rate.price') : (hotels | orderBy: '-rate.price'))
+  | filterBy: ['name']: hotelSearchString | filterBy: ['city']: citySearchString
+  | filterBy: ['amenities.private_bath']: showPrivateBath | filterBy: ['amenities.shared_kitchen']: showSharedKitchen">
+    <app-hotel-card [hotel]="hotel"></app-hotel-card>
+  </div>
 </div>

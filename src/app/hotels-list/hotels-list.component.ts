@@ -12,6 +12,7 @@ export class HotelsListComponent implements OnInit {
   citySearchString = '';
   showPrivateBath: boolean|null = null;
   showSharedKitchen: boolean|null = null;
+  sortByPrice = false;
   constructor(private hotelService: HotelsService) {
     this.hotelService.getHotels()
       .subscribe((data: IHotel[]) => {
@@ -38,6 +39,9 @@ export class HotelsListComponent implements OnInit {
     });
     this.hotelService.privateBathObservable.subscribe(show => {
       this.showPrivateBath = show;
+    });
+    this.hotelService.sortObservable.subscribe(show => {
+      this.sortByPrice = !this.sortByPrice;
     });
     this.hotelService.resetObservable.subscribe(value => {
       if (value) {

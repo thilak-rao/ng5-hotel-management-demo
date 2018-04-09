@@ -29,6 +29,10 @@ export class HotelFilterComponent implements OnInit {
     this.hotelService.resetFilters();
   }
 
+  sortByPrice(): void {
+    this.hotelService.sortByPrice();
+  }
+
   checkIfFormDirty(): void {
     if (this.isDirty) {
       return;

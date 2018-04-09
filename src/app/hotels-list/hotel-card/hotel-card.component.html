@@ -1,8 +1,8 @@
-<mat-card fxLayoutGap>
+<mat-card class="hotelcard">
   <mat-card-content fxLayout="row" fxLayoutAlign="start start">
     <img fxFlex="30" fxFlex.md="20" fxFlex.lg="10" class="hotelcard__thumbnail" src="{{ hotel.thumbnail }}" alt="Photo of {{hotel.type}} {{hotel.name}}">
     <div fxFlex="70" fxFlex.md="80" fxFlex.lg="90">
-      <mat-card-title>{{hotel.type}} {{hotel.name}}</mat-card-title>
+      <mat-card-title>{{hotel.name}}</mat-card-title>
       <div class="hotelcard__city" fxLayout="row" fxLayoutAlign="start center">
         <mat-icon svgIcon="city"></mat-icon> {{hotel.city}}
       </div>
@@ -20,7 +20,7 @@
           </ul>
         </div>
 
-        <div class="hotelcard__rate">{{hotel.rate.price | currency:hotel.rate.code:'code'}}</div>
+        <div class="hotelcard__rate">{{hotel.rate.price | currency:hotel.rate.code:'symbol'}}</div>
       </div>
     </div>
   </mat-card-content>

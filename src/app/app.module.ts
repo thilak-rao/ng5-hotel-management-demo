@@ -20,7 +20,7 @@ import { HotelFilterComponent } from './hotels-list/hotel-filter/hotel-filter.co
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 // Pipes
-import {FilterByPipe} from 'ngx-pipes';
+import {NgPipesModule} from 'ngx-pipes';
 
 // Services
 import { HotelsService } from './hotels-list/hotels.service';
@@ -37,17 +37,17 @@ const appRoutes: Routes = [
     HotelsListComponent,
     HotelCardComponent,
     HotelFilterComponent,
-    FilterByPipe
   ],
   imports: [
     RouterModule.forRoot(
       appRoutes,
-      { enableTracing: environment.production }
+      { enableTracing: !environment.production }
     ),
     BrowserModule,
     HttpClientModule,
     FlexLayoutModule,
     FormsModule,
+    NgPipesModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
     MatToolbarModule,

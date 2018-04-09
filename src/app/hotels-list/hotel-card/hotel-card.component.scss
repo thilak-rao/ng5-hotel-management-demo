@@ -1,5 +1,9 @@
 @import '~@angular/material/theming';
 @import '~variables.scss';
+
+.hotelcard {
+  margin-bottom: $small-margin;
+}
 .hotelcard__thumbnail {
   padding-right: $global_padding;
 }

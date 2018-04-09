@@ -1,0 +1,27 @@
+@import '~variables.scss';
+
+.hotelfilter {
+  margin-bottom: $global_margin;
+}
+
+.hotelfilter__field {
+  &.mat-checkbox {
+    margin-right: $global_margin;
+  }
+  @include breakpoint(md) {
+    margin-right: $global_margin;
+  }
+}
+
+.hotelfilter__sort {
+  margin: $small-margin 0 $global_margin 0;
+  @include breakpoint(md) {
+    margin: 0;
+  }
+}
+.hotelfilter__reset {
+  margin-top: $small-margin;
+  @include breakpoint(md) {
+    margin-top: 0;
+  }
+}

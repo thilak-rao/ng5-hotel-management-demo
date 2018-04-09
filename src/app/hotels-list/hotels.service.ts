@@ -9,12 +9,14 @@ export class HotelsService {
   private citySubject = new BehaviorSubject<string>('');
   private sharedKitchenSubject = new BehaviorSubject<boolean|null>(null);
   private privateBathSubject = new BehaviorSubject<boolean|null>(null);
+  private sortSubject = new BehaviorSubject<boolean>(false);
   private resetSubject = new BehaviorSubject<boolean>(false);
 
   hotelObservable = this.hotelSubject.asObservable();
   cityObservable = this.citySubject.asObservable();
   sharedKitchenObservable = this.sharedKitchenSubject.asObservable();
   privateBathObservable = this.privateBathSubject.asObservable();
+  sortObservable = this.sortSubject.asObservable();
   resetObservable = this.resetSubject.asObservable();
 
 
@@ -38,6 +40,10 @@ export class HotelsService {
 
   onlyPrivateBath(show: boolean|null) {
     this.privateBathSubject.next(show);
+  }
+
+  sortByPrice(): void {
+    this.sortSubject.next(true);
   }
 
   resetFilters(): void {
