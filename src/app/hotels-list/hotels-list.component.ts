@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostBinding } from '@angular/core';
 import {HotelsService} from './hotels.service';
+import {DomSanitizer, SafeStyle} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-hotels-list',
@@ -7,16 +8,20 @@ import {HotelsService} from './hotels.service';
   styleUrls: ['./hotels-list.component.scss']
 })
 export class HotelsListComponent implements OnInit {
+  @HostBinding('style') style: SafeStyle;
   hotels: IHotel[];
+  title = 'Hotel Management';
   hotelSearchString = '';
   citySearchString = '';
   showPrivateBath: boolean|null = null;
   showSharedKitchen: boolean|null = null;
   sortByPrice = false;
-  constructor(private hotelService: HotelsService) {
+  constructor(private hotelService: HotelsService, private sanitizer: DomSanitizer) {
+    this.style = sanitizer.bypassSecurityTrustStyle('display: none');
     this.hotelService.getHotels()
       .subscribe((data: IHotel[]) => {
         this.hotels = data;
+        this.style = this.sanitizer.bypassSecurityTrustStyle('display: block');
       });
   }
 

@@ -1,9 +1,8 @@
+// NG5
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { RouterModule, Routes } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { environment } from '../environments/environment';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // Material2
@@ -18,18 +17,19 @@ import { HotelsListComponent } from './hotels-list/hotels-list.component';
 import { HotelCardComponent } from './hotels-list/hotel-card/hotel-card.component';
 import { HotelFilterComponent } from './hotels-list/hotel-filter/hotel-filter.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { HotelQuickViewComponent } from './hotels-list/hotel-quick-view/hotel-quick-view.component';
+import { AppLoaderComponent } from './app-loader/app-loader.component';
 
 // Pipes
 import {NgPipesModule} from 'ngx-pipes';
 
 // Services
 import { HotelsService } from './hotels-list/hotels.service';
-import { HotelQuickViewComponent } from './hotels-list/hotel-quick-view/hotel-quick-view.component';
 
-const appRoutes: Routes = [
-  { path: '', component: HotelsListComponent },
-  { path: '**', component: PageNotFoundComponent }
-];
+// Router
+import { AppRoutingModule } from './/app-routing.module';
+
+
 
 @NgModule({
   declarations: [
@@ -38,14 +38,12 @@ const appRoutes: Routes = [
     HotelsListComponent,
     HotelCardComponent,
     HotelFilterComponent,
-    HotelQuickViewComponent
+    HotelQuickViewComponent,
+    AppLoaderComponent
   ],
   entryComponents: [HotelQuickViewComponent],
   imports: [
-    RouterModule.forRoot(
-      appRoutes,
-      { enableTracing: !environment.production }
-    ),
+    AppRoutingModule,
     BrowserModule,
     HttpClientModule,
     FlexLayoutModule,

@@ -1,3 +1,4 @@
+<mat-toolbar color="primary">{{ title }}</mat-toolbar>
 <div class="hotellist">
   <app-hotel-filter *ngIf="hotels" [cities]="hotels | pluck: 'city' | unique"></app-hotel-filter>
   <div *ngFor="let hotel of (sortByPrice ? (hotels | orderBy: 'rate.price') : (hotels | orderBy: '-rate.price'))
