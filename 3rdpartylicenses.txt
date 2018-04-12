@@ -206,10 +206,6 @@ ngx-pipes@2.1.2
 MIT
 MIT
 
-@angular/router@5.2.0
-MIT
-MIT
-
 @angular/cdk@5.2.4
 MIT
 The MIT License
@@ -235,6 +231,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 @angular/animations@5.2.9
+MIT
+MIT
+
+@angular/router@5.2.0
 MIT
 MIT
 
