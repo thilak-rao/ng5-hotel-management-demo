@@ -1,6 +1,7 @@
-import { Component, OnInit, HostBinding } from '@angular/core';
+import {Component, OnInit, HostBinding} from '@angular/core';
 import {HotelsService} from './hotels.service';
 import {DomSanitizer, SafeStyle} from '@angular/platform-browser';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-hotels-list',
@@ -9,14 +10,14 @@ import {DomSanitizer, SafeStyle} from '@angular/platform-browser';
 })
 export class HotelsListComponent implements OnInit {
   @HostBinding('style') style: SafeStyle;
+  readonly title = 'Hotel Management';
   hotels: IHotel[];
-  title = 'Hotel Management';
-  hotelSearchString = '';
-  citySearchString = '';
-  showPrivateBath: boolean|null = null;
-  showSharedKitchen: boolean|null = null;
-  sortByPrice = false;
-  constructor(private hotelService: HotelsService, private sanitizer: DomSanitizer) {
+  searchHotel = '';
+  searchCity = '';
+  privateBath: boolean|null = null;
+  sharedKitchen: boolean|null = null;
+  sortBy = false;
+  constructor(private hotelService: HotelsService, private sanitizer: DomSanitizer, private route: ActivatedRoute) {
     this.style = sanitizer.bypassSecurityTrustStyle('display: none');
     this.hotelService.getHotels()
       .subscribe((data: IHotel[]) => {
@@ -25,33 +26,19 @@ export class HotelsListComponent implements OnInit {
       });
   }
 
-  private resetState(): void {
-    this.hotelSearchString = '';
-    this.citySearchString = '';
-    this.showPrivateBath = null;
-    this.showSharedKitchen = null;
-  }
-
   ngOnInit() {
-    this.hotelService.hotelObservable.subscribe(hotelName => {
-      this.hotelSearchString = hotelName;
-    });
-    this.hotelService.cityObservable.subscribe(cityName => {
-      this.citySearchString = cityName;
-    });
-    this.hotelService.sharedKitchenObservable.subscribe(show => {
-      this.showSharedKitchen = show;
-    });
-    this.hotelService.privateBathObservable.subscribe(show => {
-      this.showPrivateBath = show;
-    });
-    this.hotelService.sortObservable.subscribe(show => {
-      this.sortByPrice = !this.sortByPrice;
-    });
-    this.hotelService.resetObservable.subscribe(value => {
-      if (value) {
-        this.resetState();
-      }
+    this.route.queryParamMap.subscribe((params) => {
+      const sharedKitchen = params.get('shared_kitchen');
+      const privateBath = params.get('private_bath');
+      const hotel = params.get('hotel');
+      const city = params.get('city');
+      const sortBy = params.get('sortBy');
+
+      this.sharedKitchen = sharedKitchen === null ? null : sharedKitchen === 'true';
+      this.privateBath = privateBath === null ? null : privateBath === 'true';
+      this.searchHotel = hotel === null ? '' : hotel;
+      this.searchCity = city === null ? '' : city;
+      this.sortBy = sortBy === 'price' ? true : false;
     });
   }
 }

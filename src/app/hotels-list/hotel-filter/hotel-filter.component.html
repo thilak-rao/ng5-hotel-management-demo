@@ -1,8 +1,8 @@
 <div fxLayout="column" fxLayout.md="row" fxLayout.lg="row" fxLayoutAlign="space-around stretch" class="hotelfilter">
   <form [formGroup]="filterForm" fxFlex="90" fxFlex.lt-md="100" fxLayout="row" fxLayout.lt-md="column"
         fxLayoutAlign="start center" fxLayoutAlign.lt-md="center stretch">
-    <mat-form-field class="hotelfilter__field" [floatLabel]="filterForm.value.floatLabel">
-      <input matInput placeholder="City" aria-label="City" [matAutocomplete]="auto" formControlName="searchCity">
+    <mat-form-field class="hotelfilter__field">
+      <input matInput placeholder="City" aria-label="City" [matAutocomplete]="auto" formControlName="city">
       <mat-autocomplete #auto="matAutocomplete">
         <mat-option *ngFor="let city of filteredCities | async" [value]="city">
           {{ city }}
@@ -10,19 +10,19 @@
       </mat-autocomplete>
     </mat-form-field>
 
-    <mat-form-field class="hotelfilter__field" [floatLabel]="filterForm.value.floatLabel">
+    <mat-form-field class="hotelfilter__field">
       <mat-label>Search Hotel</mat-label>
-      <input matInput formControlName="searchHotel" placeholder="Hotel Name">
+      <input matInput formControlName="hotel" placeholder="Hotel Name">
     </mat-form-field>
 
     <div fxLayout.lt-md="row" fxLayoutAlign.lt-md="start start" >
-      <mat-checkbox class="hotelfilter__field" name="private_bath" (change)="onChanges($event)" formControlName="private_bath">Private Bath</mat-checkbox>
-      <mat-checkbox class="hotelfilter__field" name="shared_kitchen" (change)="onChanges($event)" formControlName="shared_kitchen">Shared Kitchen</mat-checkbox>
+      <mat-checkbox class="hotelfilter__field" name="private_bath" formControlName="private_bath">Private Bath</mat-checkbox>
+      <mat-checkbox class="hotelfilter__field" name="shared_kitchen" formControlName="shared_kitchen">Shared Kitchen</mat-checkbox>
     </div>
-    <button class="hotelfilter__reset" mat-button color="accent" (click)="onResetFilters()" *ngIf="isDirty">Reset Filters</button>
+    <button class="hotelfilter__reset" mat-button color="accent" (click)="onResetFilters()" *ngIf="isFiltered">Reset Filters</button>
   </form>
   <div fxFlex="10" fxFlex.lt-md="100" fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="end center"
        fxLayoutAlign.lt-md="start stretch">
-    <button class="hotelfilter__sort" mat-button (click)="sortByPrice()">Sort by Price</button>
+    <button class="hotelfilter__sort" mat-button (click)="togglePriceSort()">Sort by Price</button>
   </div>
 </div>

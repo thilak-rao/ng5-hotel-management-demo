@@ -1,7 +1,7 @@
-import {Component, Input, AfterContentInit} from '@angular/core';
+import {Component, Input, AfterContentInit, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {HotelsService} from '../hotels.service';
-import {MatCheckboxChange} from '@angular/material';
 import {Observable} from 'rxjs/Observable';
 import {startWith} from 'rxjs/operators/startWith';
 import {map} from 'rxjs/operators/map';
@@ -12,21 +12,13 @@ import 'rxjs/add/operator/debounceTime';
   templateUrl: './hotel-filter.component.html',
   styleUrls: ['./hotel-filter.component.scss']
 })
-export class HotelFilterComponent implements AfterContentInit {
+export class HotelFilterComponent implements OnInit, AfterContentInit {
   @Input() cities: string[];
   filterForm: FormGroup;
-  isDirty = false;
-  filteredCities: Observable<any[]>;
+  isFiltered = false;
+  filteredCities: Observable<string[]>;
 
-  constructor(fb: FormBuilder, private hotelService: HotelsService) {
-    this.filterForm = fb.group({
-      searchHotel: '',
-      searchCity: '',
-      shared_kitchen: false,
-      private_bath: false,
-      floatLabel: 'auto',
-    });
-  }
+  constructor(private formBuilder: FormBuilder, private router: Router, private route: ActivatedRoute) {}
 
   filterCities(name: string) {
     return this.cities.filter(city =>
@@ -34,54 +26,86 @@ export class HotelFilterComponent implements AfterContentInit {
   }
 
   onResetFilters(): void {
-    this.isDirty = false;
+    this.isFiltered = false;
     this.filterForm.reset();
-    this.hotelService.resetFilters();
+    this.router.navigate(['/hotels']);
   }
 
-  sortByPrice(): void {
-    this.hotelService.sortByPrice();
+  togglePriceSort(): void {
+    switch (this.filterForm.controls.sortBy.value) {
+      case null:
+        this.filterForm.controls.sortBy.setValue('price');
+        break;
+      default:
+        this.filterForm.controls.sortBy.setValue(null);
+        break;
+    }
   }
 
-  checkIfFormDirty(): void {
-    if (this.isDirty) {
+  private checkIfFormDirty(): void {
+    if (this.isFiltered) {
       return;
     }
     const filterForm = this.filterForm.controls;
 
     for (const control in filterForm) {
       if (filterForm.hasOwnProperty(control) && filterForm[control].dirty) {
-        this.isDirty = true;
+        this.isFiltered = true;
         break;
       }
     }
   }
 
-  onChanges(e: MatCheckboxChange): void {
-    if (e.source.name === 'private_bath') {
-      this.hotelService.onlyPrivateBath(e.checked);
-    } else if (e.source.name === 'shared_kitchen') {
-      this.hotelService.onlySharedKitchen(e.checked);
-    }
+  ngOnInit(): void {
+    let paramsLoaded = false;
+
+    this.filterForm = this.formBuilder.group({
+      hotel: '',
+      city: '',
+      shared_kitchen: null,
+      private_bath: null,
+      sortBy: null
+    });
+
+    this.filterForm.valueChanges.debounceTime(300).subscribe(val => this.changeRoute(val));
+
+    this.route.queryParamMap.subscribe((params) => {
+      if (paramsLoaded) {
+        return;
+      }
+
+      for (const param in this.filterForm.controls) {
+        const paramVal = params.get(param);
+        if (paramVal !== null) {
+          this.filterForm.controls[param].setValue(params.get(param));
+          this.isFiltered = true;
+        }
+      }
+
+      paramsLoaded = true;
+    });
+  }
+
+  private changeRoute(formValue): void {
+    const queryParams = {};
+
+    Object.keys(formValue).forEach(param => {
+      if(formValue[param] === '') {
+        queryParams[param] = null;
+      } else {
+        queryParams[param] = formValue[param];
+      }
+    });
+    this.router.navigate(['/hotels'], { queryParams });
 
     this.checkIfFormDirty();
   }
 
-  ngAfterContentInit() {
-    this.filteredCities = this.filterForm.controls.searchCity.valueChanges
+  ngAfterContentInit(): void {
+    this.filteredCities = this.filterForm.controls.city.valueChanges
       .pipe(
         startWith(''),
         map(city => city ? this.filterCities(city) : this.cities.slice())
       );
-
-    this.filterForm.get('searchHotel').valueChanges.debounceTime(300).subscribe(name => {
-      this.hotelService.searchHotel(name);
-      this.checkIfFormDirty();
-    });
-
-    this.filterForm.get('searchCity').valueChanges.debounceTime(300).subscribe(name => {
-      this.hotelService.searchCity(name);
-      this.checkIfFormDirty();
-    });
   }
 }
