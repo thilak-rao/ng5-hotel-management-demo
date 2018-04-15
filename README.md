@@ -14,8 +14,8 @@ Install [Yarn](https://yarnpkg.com/lang/en/docs/install/), [Angular CLI](https:/
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-![Dependencies](https://david-dm.org/xthilakx/ng5-hotel-management-demo.svg)
-![Dev Dependencies](https://david-dm.org/xthilakx/ng5-hotel-management-demo/dev-status.svg)
+[![Dependencies](https://david-dm.org/xthilakx/ng5-hotel-management-demo.svg)](https://david-dm.org/xthilakx/ng5-hotel-management-demo)
+[![Dev Dependencies](https://david-dm.org/xthilakx/ng5-hotel-management-demo/dev-status.svg)](https://david-dm.org/xthilakx/ng5-hotel-management-demo?type=dev)
 
 ## Code scaffolding
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
