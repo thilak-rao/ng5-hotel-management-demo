@@ -6,6 +6,6 @@
 export const environment = {
   production: false,
   services: {
-    hotels: 'assets/hotel_list_stub.json'
+    hotelsList: 'assets/hotel_list_stub.json'
   }
 };

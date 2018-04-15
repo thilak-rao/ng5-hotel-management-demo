@@ -1,7 +1,6 @@
 import {Component, Input, AfterContentInit, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {HotelsService} from '../hotels.service';
 import {Observable} from 'rxjs/Observable';
 import {startWith} from 'rxjs/operators/startWith';
 import {map} from 'rxjs/operators/map';
@@ -18,9 +17,24 @@ export class HotelFilterComponent implements OnInit, AfterContentInit {
   isFiltered = false;
   filteredCities: Observable<string[]>;
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private route: ActivatedRoute) {}
+  constructor(private formBuilder: FormBuilder, private router: Router, private route: ActivatedRoute) {
+  }
 
-  filterCities(name: string) {
+  private checkIfFormDirty(): void {
+    if (this.isFiltered) {
+      return;
+    }
+    const filterForm = this.filterForm.controls;
+
+    for (const control in filterForm) {
+      if (filterForm.hasOwnProperty(control) && filterForm[control].dirty) {
+        this.isFiltered = true;
+        break;
+      }
+    }
+  }
+
+  filterCities(name: string): string[] {
     return this.cities.filter(city =>
       city.toLowerCase().indexOf(name.toLowerCase()) === 0);
   }
@@ -42,18 +56,19 @@ export class HotelFilterComponent implements OnInit, AfterContentInit {
     }
   }
 
-  private checkIfFormDirty(): void {
-    if (this.isFiltered) {
-      return;
-    }
-    const filterForm = this.filterForm.controls;
+  changeRoute(formValue): void {
+    const queryParams = {};
 
-    for (const control in filterForm) {
-      if (filterForm.hasOwnProperty(control) && filterForm[control].dirty) {
-        this.isFiltered = true;
-        break;
+    Object.keys(formValue).forEach(param => {
+      if (formValue[param] === '') {
+        queryParams[param] = null;
+      } else {
+        queryParams[param] = formValue[param];
       }
-    }
+    });
+    this.router.navigate(['/hotels'], {queryParams});
+
+    this.checkIfFormDirty();
   }
 
   ngOnInit(): void {
@@ -68,37 +83,23 @@ export class HotelFilterComponent implements OnInit, AfterContentInit {
     });
 
     this.filterForm.valueChanges.debounceTime(300).subscribe(val => this.changeRoute(val));
-
-    this.route.queryParamMap.subscribe((params) => {
+    const subscription = this.route.queryParamMap.subscribe((params) => {
       if (paramsLoaded) {
+        // URL Params already loaded
+        subscription.unsubscribe();
         return;
       }
 
-      for (const param in this.filterForm.controls) {
+      Object.keys(this.filterForm.controls).forEach(param => {
         const paramVal = params.get(param);
         if (paramVal !== null) {
           this.filterForm.controls[param].setValue(params.get(param));
           this.isFiltered = true;
         }
-      }
+      });
 
       paramsLoaded = true;
     });
-  }
-
-  private changeRoute(formValue): void {
-    const queryParams = {};
-
-    Object.keys(formValue).forEach(param => {
-      if(formValue[param] === '') {
-        queryParams[param] = null;
-      } else {
-        queryParams[param] = formValue[param];
-      }
-    });
-    this.router.navigate(['/hotels'], { queryParams });
-
-    this.checkIfFormDirty();
   }
 
   ngAfterContentInit(): void {

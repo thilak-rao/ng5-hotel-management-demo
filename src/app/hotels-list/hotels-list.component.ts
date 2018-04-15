@@ -14,19 +14,20 @@ export class HotelsListComponent implements OnInit {
   hotels: IHotel[];
   searchHotel = '';
   searchCity = '';
-  privateBath: boolean|null = null;
-  sharedKitchen: boolean|null = null;
+  privateBath: boolean | null = null;
+  sharedKitchen: boolean | null = null;
   sortBy = false;
+
   constructor(private hotelService: HotelsService, private sanitizer: DomSanitizer, private route: ActivatedRoute) {
     this.style = sanitizer.bypassSecurityTrustStyle('display: none');
-    this.hotelService.getHotels()
+    this.hotelService.getHotelsList()
       .subscribe((data: IHotel[]) => {
         this.hotels = data;
         this.style = this.sanitizer.bypassSecurityTrustStyle('display: block');
       });
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.route.queryParamMap.subscribe((params) => {
       const sharedKitchen = params.get('shared_kitchen');
       const privateBath = params.get('private_bath');

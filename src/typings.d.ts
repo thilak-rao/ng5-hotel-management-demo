@@ -6,7 +6,6 @@ interface NodeModule {
 
 interface IHotel {
   id: string;
-  type: string;
   name: string;
   city: string;
   rate: {

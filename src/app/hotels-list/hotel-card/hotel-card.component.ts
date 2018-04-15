@@ -3,15 +3,15 @@ import {DomSanitizer} from '@angular/platform-browser';
 import {MatIconRegistry, MatDialog} from '@angular/material';
 import {HotelQuickViewComponent} from '../hotel-quick-view/hotel-quick-view.component';
 
-
 @Component({
   selector: 'app-hotel-card',
   templateUrl: './hotel-card.component.html',
   styleUrls: ['./hotel-card.component.scss'],
 
 })
-export class HotelCardComponent implements OnInit {
+export class HotelCardComponent {
   @Input() hotel: IHotel;
+
   constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer, private dialog: MatDialog) {
     // register material design icons
     iconRegistry.addSvgIcon(
@@ -30,9 +30,6 @@ export class HotelCardComponent implements OnInit {
       maxWidth: 600,
       data: this.hotel
     });
-  }
-
-  ngOnInit() {
   }
 }
 
