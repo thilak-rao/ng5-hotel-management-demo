@@ -11,22 +11,29 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import 'hammerjs';
 
 // Components
+import {AppLoaderComponent} from './app-loader/app-loader.component'; // TODO: Refactor app-loader.component into app.component.
 import {AppComponent} from './app.component';
+import {DynamicModalComponent} from './dynamic-modal/dynamic-modal.component';
+import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
+
+// Hotels List Components
 import {HotelsListComponent} from './hotels-list/hotels-list.component';
 import {HotelCardComponent} from './hotels-list/hotel-card/hotel-card.component';
 import {HotelFilterComponent} from './hotels-list/hotel-filter/hotel-filter.component';
-import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import {HotelQuickViewComponent} from './hotels-list/hotel-quick-view/hotel-quick-view.component';
-import {AppLoaderComponent} from './app-loader/app-loader.component';
+import {ConfirmDeleteComponent} from './hotels-list/hotel-card/confirm-delete/confirm-delete.component';
 
 // Pipes
-import {NgPipesModule} from 'ngx-pipes';
+import {NgPipesModule} from 'ngx-pipes'; // TODO: Create custom pipe for filtering. Remove NgPipes dependency
 
 // Services
 import {HotelsService} from './hotels-list/hotels.service';
 
 // Router
 import {AppRoutingModule} from './app-routing.module';
+
+// Directives
+import {DynamicComponentHostDirective} from './dynamic-component-host.directive';
 
 
 @NgModule({
@@ -37,7 +44,10 @@ import {AppRoutingModule} from './app-routing.module';
     HotelCardComponent,
     HotelFilterComponent,
     HotelQuickViewComponent,
-    AppLoaderComponent
+    AppLoaderComponent,
+    ConfirmDeleteComponent,
+    DynamicModalComponent,
+    DynamicComponentHostDirective
   ],
   entryComponents: [HotelQuickViewComponent],
   imports: [

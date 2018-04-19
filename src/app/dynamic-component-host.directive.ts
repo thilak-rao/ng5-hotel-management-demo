@@ -1,9 +1,9 @@
 import { Directive } from '@angular/core';
 
 @Directive({
-  selector: '[appModalHost]'
+  selector: '[appModalViewComponent]'
 })
-export class ModalDirective {
+export class DynamicComponentHostDirective {
 
   constructor() { }
 

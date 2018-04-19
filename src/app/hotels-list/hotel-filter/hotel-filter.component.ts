@@ -39,7 +39,7 @@ export class HotelFilterComponent implements OnInit, AfterContentInit {
       city.toLowerCase().indexOf(name.toLowerCase()) === 0);
   }
 
-  onResetFilters(): void {
+  onResetFilters(): void { // TODO: Refactor onResetFilters into onApplyFilters.
     this.isFiltered = false;
     this.filterForm.reset();
     this.router.navigate(['/hotels']);
