@@ -2,10 +2,12 @@
 <div mat-dialog-content>
   <div fxLayout="column" fxLayoutAlign="start">
     <div fxLayout="column" fxLayoutAlign="center center">
-        <div class="quickview_loader" *ngIf="!isImageLoaded"><mat-spinner [strokeWidth]="3" [diameter]="50"></mat-spinner></div>
-        <div fxLayout="column" fxLayoutAlign="center center" >
-          <img src="{{ hotel.cover_photo }}" (load)="onImageLoad()" alt="Photo of {{hotel.name}}" fxFill>
-        </div>
+      <div class="quickview_loader" *ngIf="!isImageLoaded">
+        <mat-spinner [strokeWidth]="3" [diameter]="50"></mat-spinner>
+      </div>
+      <div fxLayout="column" fxLayoutAlign="center center">
+        <img src="{{ hotel.cover_photo }}" (load)="onImageLoad()" alt="Photo of {{hotel.name}}" fxFill>
+      </div>
     </div>
     <h1 class="quickview_city">{{hotel.city}}</h1>
     <div fxLayout="row" fxLayoutAlign="space-between stretch">
@@ -24,7 +26,8 @@
       </div>
     </div>
     <h1 class="quickview_price__wrap" fxLayout="row" fxLayoutAlign="end center"><span class="quickview_price">
-      {{hotel.rate.price | currency:hotel.rate.code:'symbol'}}</span><span class="quickview_price__label">/month</span></h1>
+      {{hotel.rate.price | currency:hotel.rate.code:'symbol'}}</span><span class="quickview_price__label">/month</span>
+    </h1>
   </div>
 </div>
 <div mat-dialog-actions>

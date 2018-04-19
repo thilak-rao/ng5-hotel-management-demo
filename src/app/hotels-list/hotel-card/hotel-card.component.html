@@ -1,10 +1,14 @@
 <mat-card class="hotelcard" (click)="openHotelQuickView()">
   <mat-card-content fxLayout="row" fxLayoutAlign="space-between center">
-    <img fxFlex="30" fxFlex.md="20" fxFlex.lg="10" class="hotelcard__thumbnail" src="{{ hotel.thumbnail }}" alt="Photo of {{hotel.name}}">
+    <img fxFlex="30" fxFlex.md="20" fxFlex.lg="10" class="hotelcard__thumbnail" src="{{ hotel.thumbnail }}"
+         alt="Photo of {{hotel.name}}">
     <div fxFlex="70" fxFlex.md="80" fxFlex.lg="90">
       <div fxLayout="row" fxLayoutAlign="space-between center">
         <mat-card-title>{{hotel.name}}</mat-card-title>
-        <button mat-button color="warn" (click)="deleteMethod($event)"><mat-icon svgIcon="delete"></mat-icon> Delete</button>
+        <button mat-button color="warn" (click)="deleteHotel($event)">
+          <mat-icon svgIcon="delete"></mat-icon>
+          Delete
+        </button>
       </div>
 
       <div class="hotelcard__city mat-subheading-2" fxLayout="row" fxLayoutAlign="start center">{{hotel.city}}</div>
@@ -12,14 +16,23 @@
         <!--TODO: amenities icons appear tiny on smaller viewport size.  -->
         <div class="hotelcard__amenities" *ngIf="hotel.amenities.private_bath || hotel.amenities.shared_kitchen">
           <ul class="hotelcard__list">
-            <li fxLayout="row" fxLayoutAlign="start center" fxLayoutGap *ngIf="hotel.amenities.private_bath"><mat-icon svgIcon="private-bath"></mat-icon>Private Bath</li>
-            <li fxLayout="row" fxLayoutAlign="start center" fxLayoutGap *ngIf="hotel.amenities.shared_kitchen"><mat-icon svgIcon="shared-kitchen"></mat-icon>Shared Kitchen</li>
+            <li fxLayout="row" fxLayoutAlign="start center" fxLayoutGap *ngIf="hotel.amenities.private_bath">
+              <mat-icon svgIcon="private-bath"></mat-icon>
+              Private Bath
+            </li>
+            <li fxLayout="row" fxLayoutAlign="start center" fxLayoutGap *ngIf="hotel.amenities.shared_kitchen">
+              <mat-icon svgIcon="shared-kitchen"></mat-icon>
+              Shared Kitchen
+            </li>
           </ul>
         </div>
 
         <div class="hotelcard__amenities" *ngIf="!(hotel.amenities.private_bath || hotel.amenities.shared_kitchen)">
           <ul class="hotelcard__list">
-            <li fxLayout="row" fxLayoutAlign="start center" fxLayoutGap><mat-icon svgIcon="no-amenities"></mat-icon> No Private Bath or Shared Kitchen</li>
+            <li fxLayout="row" fxLayoutAlign="start center" fxLayoutGap>
+              <mat-icon svgIcon="no-amenities"></mat-icon>
+              No Private Bath or Shared Kitchen
+            </li>
           </ul>
         </div>
         <h1 class="hotelcard__rate">{{hotel.rate.price | currency:hotel.rate.code:'symbol'}}</h1>

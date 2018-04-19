@@ -1,35 +1,49 @@
-import {Injectable, Type, Inject} from '@angular/core';
-import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {Injectable, Type} from '@angular/core';
+import {MatDialog, MatDialogRef} from '@angular/material';
+import {DynamicModalBaseComponent} from './dynamic-modal/dynamic-modal-base.component';
+
 
 @Injectable()
 export class DynamicModalService {
-  id: number;
-  childComponent: Type<any>;
-  data: object;
+  readonly id: number;
+  private childComponent: Type<any>;
+  private data: object;
+  private promise: Promise<boolean>; // TODO: Refactor Promise and use Subject instead
 
   constructor(private dialog: MatDialog) {
-    this.id = Math.random() * 100; // just for testing
   }
 
-  open(component: Type<any>, data: object, maxWidth: number = 600) {
-    if (!component) {
-      throw new Error('Modal Service needs a component to open');
-    }
+  open(component: Type<any>, data: any, maxWidth: number = 600) {
+    this.promise = new Promise((resolve, reject) => {
+      if (!component) {
+        reject(new Error('DynamicModalService needs a component to open'));
+      }
 
-    if (!data) {
-      throw new Error('Modal Service needs data to open');
-    }
+      if (!data) {
+        reject(new Error('DynamicModalService needs data to open'));
+      }
 
-    this.childComponent = component;
-    this.data = data;
+      this.childComponent = component;
+      this.data = data;
 
-    this.dialog.open(component, {
-      maxWidth: maxWidth,
-      data: this.data
+      const dialogRef: MatDialogRef<DynamicModalBaseComponent> = this.dialog.open(DynamicModalBaseComponent, {
+        maxWidth: maxWidth,
+        data: {
+          component: this.childComponent,
+          data: this.data
+        }
+      });
+
+      let hasUserConfirmed = false;
+      dialogRef.componentInstance.comfirm.subscribe(confirmation => hasUserConfirmed = confirmation);
+      dialogRef.afterClosed().subscribe(() => resolve(hasUserConfirmed));
     });
+
+    return this.promise;
   }
 
   close() {
+    // TODO: complete `close` method
     console.log('Close Method Called', this.id, this.data);
   }
 }

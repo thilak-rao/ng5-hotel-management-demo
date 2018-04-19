@@ -13,7 +13,7 @@ import 'hammerjs';
 // Components
 import {AppLoaderComponent} from './app-loader/app-loader.component'; // TODO: Refactor app-loader.component into app.component.
 import {AppComponent} from './app.component';
-import {DynamicModalComponent} from './dynamic-modal/dynamic-modal.component';
+import {DynamicModalBaseComponent} from './dynamic-modal/dynamic-modal-base.component';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 
 // Hotels List Components
@@ -33,7 +33,7 @@ import {HotelsService} from './hotels-list/hotels.service';
 import {AppRoutingModule} from './app-routing.module';
 
 // Directives
-import {DynamicComponentHostDirective} from './dynamic-component-host.directive';
+import {ViewContainerRefDirective} from './view-container-ref.directive';
 
 
 @NgModule({
@@ -45,12 +45,13 @@ import {DynamicComponentHostDirective} from './dynamic-component-host.directive'
     HotelFilterComponent,
     HotelQuickViewComponent,
     AppLoaderComponent,
-    DynamicModalComponent,
+    DynamicModalBaseComponent,
     ConfirmDeleteComponent,
-    DynamicComponentHostDirective
+    ViewContainerRefDirective
   ],
   entryComponents: [
     HotelQuickViewComponent,
+    DynamicModalBaseComponent,
     ConfirmDeleteComponent
   ],
   imports: [

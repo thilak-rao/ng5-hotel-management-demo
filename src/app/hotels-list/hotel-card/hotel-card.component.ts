@@ -32,9 +32,15 @@ export class HotelCardComponent {
       sanitizer.bypassSecurityTrustResourceUrl('assets/icons/delete.svg'));
   }
 
-  deleteMethod(event) {
+  deleteHotel(event) {
     event.stopPropagation();
-    this.modalService.open(ConfirmDeleteComponent, this.hotel);
+    this.modalService.open(ConfirmDeleteComponent, this.hotel).then(confirmed => {
+      if (confirmed) {
+        alert(`HotelCardComponent: user confirmed deleteHotel.\n\nPayload:\n${JSON.stringify(this.hotel)}`);
+      } else {
+        alert(`HotelCardComponent: user cancelled deleteHotel.\n\nPayload:\n${JSON.stringify(this.hotel)}`);
+      }
+    });
   }
 
   openHotelQuickView(): void {
