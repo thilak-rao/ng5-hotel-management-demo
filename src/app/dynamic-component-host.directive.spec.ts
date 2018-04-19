@@ -1,4 +1,4 @@
-import { DynamicComponentHostDirective } from './dynamic-component-host.directive';
+import {DynamicComponentHostDirective} from './dynamic-component-host.directive';
 
 describe('DynamicComponentHostDirective', () => {
   it('should create an instance', () => {

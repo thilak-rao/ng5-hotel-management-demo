@@ -24,3 +24,5 @@ interface IHotel {
   thumbnail: string;
   cover_photo: string;
 }
+
+// TODO: create interface hotel filter object

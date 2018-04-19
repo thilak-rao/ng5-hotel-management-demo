@@ -1,4 +1,4 @@
-import { Injectable, Type, Inject } from '@angular/core';
+import {Injectable, Type, Inject} from '@angular/core';
 import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 
 @Injectable()

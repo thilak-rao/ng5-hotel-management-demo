@@ -34,7 +34,7 @@ export class HotelFilterComponent implements OnInit, AfterContentInit {
     }
   }
 
-  filterCities(name: string): string[] {
+  filterCities(name: string): string[] { // TODO: Move this logic to Hotel List Component
     return this.cities.filter(city =>
       city.toLowerCase().indexOf(name.toLowerCase()) === 0);
   }

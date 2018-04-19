@@ -2,6 +2,7 @@
   <form [formGroup]="filterForm" fxFlex="90" fxFlex.lt-md="100" fxLayout="row" fxLayout.lt-md="column"
         fxLayoutAlign="start center" fxLayoutAlign.lt-md="center stretch">
     <mat-form-field class="hotelfilter__field">
+      <!--TODO: bug - city autocomplete form does not update on filter state change -->
       <input matInput placeholder="City" aria-label="City" [matAutocomplete]="auto" formControlName="city">
       <mat-autocomplete #auto="matAutocomplete">
         <mat-option *ngFor="let city of filteredCities | async" [value]="city">

@@ -45,11 +45,14 @@ import {DynamicComponentHostDirective} from './dynamic-component-host.directive'
     HotelFilterComponent,
     HotelQuickViewComponent,
     AppLoaderComponent,
-    ConfirmDeleteComponent,
     DynamicModalComponent,
+    ConfirmDeleteComponent,
     DynamicComponentHostDirective
   ],
-  entryComponents: [HotelQuickViewComponent],
+  entryComponents: [
+    HotelQuickViewComponent,
+    ConfirmDeleteComponent
+  ],
   imports: [
     AppRoutingModule,
     BrowserModule,
