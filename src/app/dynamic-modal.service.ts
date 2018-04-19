@@ -1,6 +1,6 @@
 import {Injectable, Type} from '@angular/core';
 import {MatDialog, MatDialogRef} from '@angular/material';
-import {DynamicModalBaseComponent} from './dynamic-modal/dynamic-modal-base.component';
+import {DynamicModalBaseComponent} from './dynamic-modal-base/dynamic-modal-base.component';
 
 
 @Injectable()

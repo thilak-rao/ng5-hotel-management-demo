@@ -13,7 +13,7 @@ import 'hammerjs';
 // Components
 import {AppLoaderComponent} from './app-loader/app-loader.component'; // TODO: Refactor app-loader.component into app.component.
 import {AppComponent} from './app.component';
-import {DynamicModalBaseComponent} from './dynamic-modal/dynamic-modal-base.component';
+import {DynamicModalBaseComponent} from './dynamic-modal-base/dynamic-modal-base.component';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 
 // Hotels List Components
