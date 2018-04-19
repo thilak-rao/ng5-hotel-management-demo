@@ -22,12 +22,12 @@
       <mat-checkbox class="hotelfilter__field" name="shared_kitchen" formControlName="shared_kitchen">Shared Kitchen
       </mat-checkbox>
     </div>
-    <button class="hotelfilter__reset" mat-button color="accent" (click)="onResetFilters()" *ngIf="isFiltered">Reset
+    <button class="hotelfilter__reset" mat-raised-button color="accent" (click)="onResetFilters()" *ngIf="isFiltered">Reset
       Filters
     </button>
   </form>
   <div fxFlex="10" fxFlex.lt-md="100" fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="end center"
        fxLayoutAlign.lt-md="start stretch">
-    <button class="hotelfilter__sort" mat-button (click)="togglePriceSort()">Sort by Price</button>
+    <button class="hotelfilter__sort" mat-raised-button (click)="togglePriceSort()"><mat-icon svgIcon="sort"></mat-icon> Sort by Price</button>
   </div>
 </div>

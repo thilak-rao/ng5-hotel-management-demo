@@ -5,7 +5,7 @@
     <div fxFlex="70" fxFlex.md="80" fxFlex.lg="90">
       <div fxLayout="row" fxLayoutAlign="space-between center">
         <mat-card-title>{{hotel.name}}</mat-card-title>
-        <button mat-button color="warn" (click)="deleteHotel($event)">
+        <button mat-raised-button (click)="deleteHotel($event)">
           <mat-icon svgIcon="delete"></mat-icon>
           Delete
         </button>

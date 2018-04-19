@@ -5,6 +5,8 @@ import {Observable} from 'rxjs/Observable';
 import {startWith} from 'rxjs/operators/startWith';
 import {map} from 'rxjs/operators/map';
 import 'rxjs/add/operator/debounceTime';
+import {DomSanitizer} from '@angular/platform-browser';
+import {MatIconRegistry} from '@angular/material';
 
 @Component({
   selector: 'app-hotel-filter',
@@ -16,8 +18,14 @@ export class HotelFilterComponent implements OnInit, AfterContentInit {
   filterForm: FormGroup;
   isFiltered = false;
   filteredCities: Observable<string[]>;
-
-  constructor(private formBuilder: FormBuilder, private router: Router, private route: ActivatedRoute) {
+  // TODO: pass filtered state to parent component using EventEmitter
+  constructor(private formBuilder: FormBuilder, private router: Router,
+              private route: ActivatedRoute, iconRegistry: MatIconRegistry,
+              sanitizer: DomSanitizer) {
+    // register material design icons
+    iconRegistry.addSvgIcon(
+      'sort',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/icons/sort.svg'));
   }
 
   private checkIfFormDirty(): void {
@@ -56,7 +64,7 @@ export class HotelFilterComponent implements OnInit, AfterContentInit {
     }
   }
 
-  changeRoute(formValue): void {
+  changeRoute(formValue): void { // TODO: Move route change logic to HotelsListComponent
     const queryParams = {};
 
     Object.keys(formValue).forEach(param => {
