@@ -1,9 +1,7 @@
 <mat-toolbar color="primary">{{ title }}</mat-toolbar>
 <div class="hotellist">
-  <app-hotel-filter *ngIf="hotels" [cities]="hotels | pluck: 'city' | unique"></app-hotel-filter>
-  <div *ngFor="let hotel of (sortBy ? (hotels | orderBy: '-rate.price') : (hotels | orderBy: 'rate.price'))
-  | filterBy: ['name']: searchHotel | filterBy: ['city']: searchCity
-  | filterBy: ['amenities.private_bath']: privateBath | filterBy: ['amenities.shared_kitchen']: sharedKitchen">
+  <app-hotel-filter *ngIf="hotels" [cities]="hotels | pluck: 'city' | unique" [filters]="filters" (filterChange)="onFilterChange($event)"></app-hotel-filter>
+  <div *ngFor="let hotel of hotels | hotelFilter: filters">
     <app-hotel-card [hotel]="hotel"></app-hotel-card>
   </div>
 </div>

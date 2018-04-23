@@ -1,4 +1,4 @@
-import {Component, Input, AfterContentInit, OnInit} from '@angular/core';
+import {Component, Input, AfterContentInit, OnInit, EventEmitter, Output} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Observable} from 'rxjs/Observable';
@@ -15,6 +15,8 @@ import {MatIconRegistry} from '@angular/material';
 })
 export class HotelFilterComponent implements OnInit, AfterContentInit {
   @Input() cities: string[];
+  @Input() filters: IHotelFilter;
+  @Output() filterChange: EventEmitter<IHotelFilter> = new EventEmitter(true);
   filterForm: FormGroup;
   isFiltered = false;
   filteredCities: Observable<string[]>;
@@ -54,59 +56,55 @@ export class HotelFilterComponent implements OnInit, AfterContentInit {
   }
 
   togglePriceSort(): void {
-    switch (this.filterForm.controls.sortBy.value) {
-      case null:
-        this.filterForm.controls.sortBy.setValue('price');
-        break;
-      default:
-        this.filterForm.controls.sortBy.setValue(null);
-        break;
-    }
-  }
-
-  changeRoute(formValue): void { // TODO: Move route change logic to HotelsListComponent
-    const queryParams = {};
-
-    Object.keys(formValue).forEach(param => {
-      if (formValue[param] === '') {
-        queryParams[param] = null;
-      } else {
-        queryParams[param] = formValue[param];
-      }
-    });
-    this.router.navigate(['/hotels'], {queryParams});
-
-    this.checkIfFormDirty();
+    this.filterForm.controls.sortByPrice.setValue(!this.filterForm.controls.sortByPrice.value);
   }
 
   ngOnInit(): void {
-    let paramsLoaded = false;
-
     this.filterForm = this.formBuilder.group({
-      hotel: '',
-      city: '',
-      shared_kitchen: null,
-      private_bath: null,
-      sortBy: null
+      hotel: this.filters.hotel,
+      city: this.filters.city,
+      sharedKitchen: null,
+      privateBath: null,
+      sortByPrice: true // TODO: Set default sort options in HotelFilters
     });
 
-    this.filterForm.valueChanges.debounceTime(300).subscribe(val => this.changeRoute(val));
-    const subscription = this.route.queryParamMap.subscribe((params) => {
-      if (paramsLoaded) {
-        // URL Params already loaded
-        subscription.unsubscribe();
-        return;
+    this.filters.amenities.forEach((amenity: Amenities) => {
+      if (amenity === 'private_bath') {
+        this.filterForm.controls.privateBath.setValue(true);
       }
 
-      Object.keys(this.filterForm.controls).forEach(param => {
-        const paramVal = params.get(param);
-        if (paramVal !== null) {
-          this.filterForm.controls[param].setValue(params.get(param));
-          this.isFiltered = true;
-        }
-      });
+      if (amenity === 'shared_kitchen') {
+        this.filterForm.controls.sharedKitchen.setValue(true);
+      }
+    });
 
-      paramsLoaded = true;
+    // Subscribe to user input on filter form
+    this.filterForm.valueChanges.debounceTime(300).subscribe(val => {
+      const amenities: Amenities[] = [];
+      const sort: ISortFilter[] = [];
+
+      if (val['sharedKitchen']) {
+        amenities.push('shared_kitchen');
+      }
+
+      if (val['privateBath']) {
+        amenities.push('private_bath');
+      }
+
+      if (val['sortByPrice']) {
+        sort.push({
+          type: 'price',
+          descending: val.sortByPrice
+        });
+      }
+
+      // Emit changes back to parent component
+      this.filterChange.emit({
+        city: val.city,
+        hotel: val.hotel,
+        amenities,
+        sort
+      });
     });
   }
 

@@ -26,4 +26,16 @@ interface IHotel {
   cover_photo: string;
 }
 
-// TODO: create interface hotel filter object
+interface ISortFilter {
+  type: 'price';
+  descending: boolean;
+}
+
+type Amenities = 'shared_kitchen'|'private_bath';
+
+interface IHotelFilter {
+  city: string;
+  sort: ISortFilter[];
+  hotel: string;
+  amenities: Amenities[];
+}

@@ -24,6 +24,7 @@ import {HotelQuickViewComponent} from './hotels-list/hotel-quick-view/hotel-quic
 import {ConfirmDeleteComponent} from './hotels-list/hotel-card/confirm-delete/confirm-delete.component';
 
 // Pipes
+import {HotelFilterPipe} from './pipes/hotel-filter.pipe';
 import {NgPipesModule} from 'ngx-pipes'; // TODO: Create custom pipe for filtering. Remove NgPipes dependency
 
 // Services
@@ -47,7 +48,8 @@ import {ViewContainerRefDirective} from './view-container-ref.directive';
     AppLoaderComponent,
     DynamicModalBaseComponent,
     ConfirmDeleteComponent,
-    ViewContainerRefDirective
+    ViewContainerRefDirective,
+    HotelFilterPipe
   ],
   entryComponents: [
     HotelQuickViewComponent,
@@ -63,7 +65,7 @@ import {ViewContainerRefDirective} from './view-container-ref.directive';
     NgPipesModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    MaterialModule
+    MaterialModule,
   ],
   providers: [HotelsService],
   bootstrap: [AppComponent]
